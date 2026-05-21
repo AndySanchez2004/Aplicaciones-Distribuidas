@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{transparent}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath}
+
+\geometry{
+    a4paper,
+    left=3cm,
+    right=3cm,
+    top=3cm,
+    bottom=3cm
+}
+
+\setstretch{1.5}
+
+\AddToShipoutPictureBG{
+    \AtPageCenter{
+        \makebox(0,0){
+            \transparent{0.08}
+            \includegraphics[width=9cm]{imagenes/uteqlogo.jpg}
+        }
+    }
+}
+
+\begin{document}
+
+\begin{titlepage}
+
+\centering
+
+{\Large \textbf{UNIVERSIDAD TÉCNICA ESTATAL DE QUEVEDO}}\\[0.3cm]
+\textbf
+
+{\large \textbf{CARRERA:}}\\[0.2cm]
+INGENIERÍA EN SOFTWARE\\[1cm]
+
+{\large \textbf{NOMBRE:}}\\[0.2cm]
+SÁNCHEZ PILALOA ANDY PAÚL\\[1cm]
+
+{\large \textbf{CURSO:}}\\[0.2cm]
+7MO SOFTWARE ``A''\\[1cm]
+
+{\large \textbf{DOCENTE:}}\\[0.2cm]
+ING. GUERRERO ULLOA GLEISTON CICERON\\[1cm]
+
+{\large \textbf{ASIGNATURA:}}\\[0.2cm]
+APLICACIONES DISTRIBUIDAS\\[1cm]
+
+{\large \textbf{TEMA:}}\\[0.2cm]
+ANÁLISIS CRÍTICO DE SISTEMAS DISTRIBUIDOS\\[1cm]
+
+{\large \textbf{PERIODO:}}\\[0.2cm]
+SÉPTIMO SEMESTRE 2026-2027\\
+PPA
+
+\vfill
+
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+BitTorrent es uno de los sistemas distribuidos basados en arquitectura \textit{peer-to-peer} más utilizados para el intercambio de archivos en red. Su funcionamiento descentralizado permite distribuir información entre múltiples nodos sin depender completamente de un servidor central. El presente trabajo realiza un análisis crítico comparativo de BitTorrent aplicando conceptos fundamentales de sistemas distribuidos como el modelo CAP, las transparencias de distribución, los modelos de comunicación y la tolerancia a fallos. Además, se comparan algunas características de la arquitectura P2P frente al modelo cliente-servidor tradicional, identificando ventajas y limitaciones relacionadas con la disponibilidad, escalabilidad y consistencia de la información.
+
+\newpage
+
+\section{Introducción}
+
+Los sistemas distribuidos permiten que múltiples computadoras trabajen de manera coordinada mediante una red para compartir recursos y procesar información. Actualmente son utilizados en diversas aplicaciones modernas debido a su capacidad de mejorar la disponibilidad, escalabilidad y tolerancia a fallos.
+
+Uno de los modelos distribuidos más conocidos es la arquitectura \textit{peer-to-peer} (P2P), donde los usuarios pueden compartir recursos directamente entre sí sin depender totalmente de un servidor central. BitTorrent representa uno de los ejemplos más importantes de este tipo de arquitectura, ya que distribuye archivos mediante fragmentos compartidos entre múltiples usuarios \cite{ref1}.
+
+A lo largo del análisis se establecen comparaciones entre la arquitectura \textit{peer-to-peer} de BitTorrent y el modelo cliente-servidor tradicional, evidenciando ventajas y limitaciones relacionadas con la distribución de información y la disponibilidad del sistema.
+
+El objetivo del presente trabajo es analizar críticamente el funcionamiento de BitTorrent aplicando conceptos de sistemas distribuidos como el modelo CAP, las transparencias de distribución, los modelos de comunicación y la tolerancia a fallos.
+
+\newpage
+
+\section{Fundamentación teórica}
+
+Un sistema distribuido está compuesto por múltiples computadoras independientes que trabajan de forma coordinada para ofrecer servicios a los usuarios. Este tipo de sistemas busca mejorar el rendimiento, la disponibilidad y la escalabilidad mediante la distribución de procesos y datos.
+
+Dentro de estas arquitecturas destaca el modelo \textit{peer-to-peer} (P2P), donde cada nodo puede actuar tanto como cliente como servidor. BitTorrent utiliza este enfoque para compartir archivos mediante fragmentos llamados \textit{chunks}, permitiendo que varios usuarios colaboren simultáneamente en la distribución del contenido.
+
+\subsection{Modelo CAP}
+
+El teorema CAP establece que un sistema distribuido no puede garantizar simultáneamente consistencia, disponibilidad y tolerancia a particiones \cite{ref6}.
+
+\begin{equation}
+CAP = Consistency + Availability + Partition\ Tolerance
+\end{equation}
+
+La consistencia implica que todos los nodos tengan la misma información; la disponibilidad permite que el sistema continúe respondiendo solicitudes; mientras que la tolerancia a particiones permite seguir funcionando ante problemas de red.
+
+En BitTorrent se prioriza principalmente la disponibilidad y la tolerancia a particiones, ya que el intercambio de archivos continúa incluso cuando algunos usuarios abandonan la red.
+
+\subsection{Transparencias de distribución}
+
+Las transparencias de distribución permiten que un sistema distribuido funcione de forma similar a un sistema centralizado desde la perspectiva del usuario.
+
+En BitTorrent pueden identificarse diferentes tipos de transparencias. La transparencia de acceso se observa cuando los usuarios descargan archivos sin conocer el proceso interno de distribución. La transparencia de ubicación permite acceder al contenido sin identificar qué nodo almacena cada fragmento.
+
+Asimismo, la transparencia de replicación se evidencia porque múltiples usuarios almacenan copias de los fragmentos descargados, mientras que la transparencia ante fallos permite que el sistema continúe funcionando incluso cuando algunos peers se desconectan.
+
+\section{Arquitectura distribuida de BitTorrent}
+
+BitTorrent es un protocolo de intercambio de archivos basado en arquitectura \textit{peer-to-peer}. A diferencia del modelo cliente-servidor tradicional, donde un único servidor distribuye el contenido, BitTorrent permite que cada usuario participe tanto en la descarga como en la distribución de archivos.
+
+\subsection{Modelos de comunicación}
+
+La comunicación en BitTorrent se basa en el intercambio de mensajes entre peers conectados a la red. Cuando un usuario inicia una descarga, el cliente BitTorrent realiza un proceso conocido como \textit{handshake}, el cual permite establecer y validar la conexión entre nodos.
+
+Posteriormente, los peers intercambian mensajes relacionados con solicitudes de descarga y disponibilidad de fragmentos. Este modelo de comunicación orientado a mensajes permite coordinar la distribución de archivos entre múltiples usuarios de manera simultánea.
+
+Además, BitTorrent utiliza mecanismos distribuidos como los \textit{trackers} y las tablas hash distribuidas (DHT) para localizar peers disponibles dentro de la red \cite{ref2}.
+
+El sistema divide los archivos en fragmentos o \textit{chunks}. A medida que un usuario descarga partes del archivo, también comienza a compartirlas automáticamente con otros peers conectados.
+
+\subsection{Tolerancia a fallos}
+
+La tolerancia a fallos en BitTorrent se basa principalmente en la replicación distribuida de fragmentos entre múltiples peers. Cuando un nodo abandona la red, otros usuarios pueden continuar proporcionando los fragmentos restantes del archivo.
+
+A diferencia del modelo cliente-servidor tradicional, donde la caída del servidor principal puede interrumpir completamente el servicio, BitTorrent mantiene el intercambio de información gracias a la participación simultánea de múltiples nodos distribuidos \cite{ref3}.
+
+\section{Análisis crítico de BitTorrent}
+
+BitTorrent representa uno de los sistemas distribuidos más eficientes para el intercambio descentralizado de archivos. Su arquitectura permite distribuir la carga entre múltiples usuarios, reduciendo la dependencia de servidores centrales y mejorando la escalabilidad del sistema.
+
+Una de sus principales ventajas es que el aumento de usuarios puede beneficiar el rendimiento general de la red, ya que existen más nodos compartiendo fragmentos simultáneamente. Esto contrasta con el modelo cliente-servidor tradicional, donde el incremento de usuarios puede generar sobrecarga en el servidor principal.
+
+Sin embargo, BitTorrent también presenta limitaciones relacionadas con la consistencia de la información. Debido a la naturaleza descentralizada de la red, algunos peers pueden no poseer inmediatamente los mismos fragmentos del archivo o existir diferencias temporales en la disponibilidad de ciertos \textit{chunks}.
+
+Además, diversos estudios indican que una distribución desigual de fragmentos puede afectar la estabilidad y el rendimiento de la red P2P \cite{ref4}. También existen desafíos relacionados con la cooperación entre usuarios, ya que algunos participantes pueden intentar descargar contenido sin compartir recursos con otros peers \cite{ref5}.
+
+En términos generales, BitTorrent demuestra cómo una arquitectura distribuida puede ofrecer altos niveles de disponibilidad, escalabilidad y tolerancia a fallos, aunque también presenta desafíos relacionados con la coordinación y sincronización entre nodos.
+
+\section{Aplicación al Proyecto Final de Curso}
+
+Los conceptos observados en BitTorrent pueden relacionarse con el Proyecto Final de Curso (PFC), el cual consiste en una plataforma web orientada a la compra y ensamblado personalizado de componentes de computadoras.
+
+Aunque el sistema desarrollado no utiliza una arquitectura P2P, varios principios de los sistemas distribuidos podrían aplicarse para mejorar su funcionamiento. Por ejemplo, la división de servicios independientes permitiría separar módulos como catálogo, ensamblado, inventario y recomendaciones basadas en inteligencia artificial.
+
+Asimismo, conceptos como disponibilidad y tolerancia a fallos podrían implementarse mediante replicación de datos y separación de servicios, evitando que un fallo afecte completamente el funcionamiento de la plataforma.
+
+\section{Conclusiones}
+
+BitTorrent representa un ejemplo importante de sistema distribuido basado en arquitectura \textit{peer-to-peer}, permitiendo compartir información de manera descentralizada y tolerante a fallos.
+
+A través del análisis realizado fue posible relacionar conceptos fundamentales de sistemas distribuidos como el modelo CAP, las transparencias de distribución, los modelos de comunicación y la tolerancia a fallos aplicados en un sistema real.
+
+Además, se identificaron ventajas relacionadas con la disponibilidad y escalabilidad del sistema, así como limitaciones asociadas a la consistencia de la información y la coordinación entre nodos.
+
+Finalmente, el estudio permitió comprender cómo los principios de los sistemas distribuidos pueden aplicarse en tecnologías modernas orientadas al intercambio eficiente de información.
+
+\newpage
+
+\begin{thebibliography}{9}
+\addcontentsline{toc}{section}{Referencias}
+
+\bibitem{ref1}
+Ammar Mazri and Merouane Mehdi,
+``Unraveling Decentralized Data Storage: A Comparative Analysis of IPFS and BitTorrent Networks,''
+2024 2nd International Conference on Electrical Engineering and Automatic Control (ICEEAC), 2024.
+
+\bibitem{ref2}
+I-Shyan Hwang et al.,
+``Global P2P BitTorrent Real-Time Traffic Over SDN-Based Local-Aware NG-PON2,''
+IEEE Access, vol. 10, 2022.
+
+\bibitem{ref3}
+Steven J. H. Shiau et al.,
+``A BitTorrent Mechanism-Based Solution for Massive System Deployment,''
+IEEE Access, vol. 9, 2021.
+
+\bibitem{ref4}
+Vamseedhar Reddyvari et al.,
+``Mode-Suppression: A Simple, Stable and Scalable Chunk-Sharing Algorithm for P2P Networks,''
+IEEE/ACM Transactions on Networking, vol. 29, no. 6, 2021.
+
+\bibitem{ref5}
+Xiang Yan and Wei Zhu,
+``Efficiency and Fairness in Resource Exchange,''
+IEEE Transactions on Cloud Computing, vol. 10, no. 4, 2022.
+
+\bibitem{ref6}
+Divyakant Agrawal, Amr El Abbadi and Sudipto Das,
+``Consistency-Availability Tradeoffs in Cloud Storage: An Overview of the CAP Theorem and Its Evolution,''
+\textit{IEEE Internet Computing}, vol. 25, no. 1, 2021.
+
+\end{thebibliography}
+
+\end{document}
+```
